@@ -1,10 +1,10 @@
 import { TemporalEvent, TemporalOption } from "./types";
-import { addTime, isBefore, isBetween } from "./utils";
+import { addTimeToDate, isBefore, isBetween } from "./utils";
 
 function buildSlot(start: Date, options: TemporalOption): TemporalEvent {
   return {
     start: start,
-    end: addTime(start, options),
+    end: addTimeToDate(start, options),
   };
 }
 
@@ -28,6 +28,6 @@ export function* generateSlots(
     if (toExclude.length === 0) {
       yield slot;
     }
-    start = addTime(start, options);
+    start = addTimeToDate(start, options);
   }
 }
