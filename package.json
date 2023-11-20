@@ -11,7 +11,10 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
   },
-  "keywords": [],
+  "keywords": [
+    "solts",
+    "avabilities"
+  ],
   "author": "Gialicus",
   "license": "ISC",
   "devDependencies": {
