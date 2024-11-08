@@ -48,4 +48,54 @@ describe("generate_slot suite", () => {
     }
     expect(count).toBe(12);
   });
+  it("should create 12 slots of 5 minutes", () => {
+    const from = dayjs("2023-07-01T00:00:00.000Z").toDate();
+    const to = dayjs("2023-07-01T01:00:00.000Z").toDate();
+    const slots = generateSlots(from, to, [], {
+      duration: 5,
+      unit: "minute",
+    });
+    let count = 0;
+    for (const _ of slots) {
+      count += 1;
+    }
+    expect(count).toBe(12);
+  });
+  it("should create 288 slots of 5 minutes", () => {
+    const from = dayjs("2023-07-01T00:00:00.000Z").toDate();
+    const to = dayjs("2023-07-02T00:00:00.000Z").toDate();
+    const slots = generateSlots(from, to, [], {
+      duration: 5,
+      unit: "minute",
+    });
+    let count = 0;
+    for (const _ of slots) {
+      count += 1;
+    }
+    expect(count).toBe(288);
+  });
+
+  it("should create 144 slots of 5 minutes", () => {
+    const from = dayjs("2023-07-01T00:00:00.000Z").toDate();
+    const to = dayjs("2023-07-02T00:00:00.000Z").toDate();
+    const slots = generateSlots(
+      from,
+      to,
+      [
+        {
+          start: dayjs("2023-07-01T00:00:00.000Z").toDate(),
+          end: dayjs("2023-07-01T12:00:00.000Z").toDate(),
+        },
+      ],
+      {
+        duration: 5,
+        unit: "minute",
+      }
+    );
+    let count = 0;
+    for (const _ of slots) {
+      count += 1;
+    }
+    expect(count).toBe(144);
+  });
 });

@@ -77,3 +77,29 @@ export function* generateSlotByWeeklyAvability(
     }
   }
 }
+
+export function* generateMinutesSlotByDailyAvability(
+  from: Date,
+  to: Date,
+  avabilites: DailyAvability[],
+  exclude: TemporalEvent[] = [],
+  durationInMinutes: number = 5
+) {
+  if (avabilites.length === 0) {
+    yield* generateSlots(from, to, exclude, {
+      duration: durationInMinutes,
+      unit: "minute",
+    });
+  }
+  for (const avability of avabilites) {
+    assertAvability(avability);
+    for (const slot of generateSlots(from, to, exclude, {
+      duration: durationInMinutes,
+      unit: "minute",
+    })) {
+      if (slot.start.getDay() !== avability.dayOfWeek) continue; //non è lo stesso giorno quindi lo slot non è valido
+      const isValid = checkSlot(slot, avability);
+      if (isValid) yield slot;
+    }
+  }
+}
