@@ -1,0 +1,3 @@
+## Temporale
+
+avability slot generator
